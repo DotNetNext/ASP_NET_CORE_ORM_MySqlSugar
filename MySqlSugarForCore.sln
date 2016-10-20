@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{722432B2-E99E-44EA-94C9-F53C0F79FF9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF799644-EA4C-441E-900F-2814DEF7F5E4}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MySqlSugarForCore", "src\MySqlSugarForCore\MySqlSugarForCore.xproj", "{16E4A140-F463-48A8-B126-070D63092B13}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NewTest", "src\NewTest\NewTest.xproj", "{DA9F097B-AF65-429A-9BAB-7E9C684F3ECF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16E4A140-F463-48A8-B126-070D63092B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E4A140-F463-48A8-B126-070D63092B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E4A140-F463-48A8-B126-070D63092B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E4A140-F463-48A8-B126-070D63092B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA9F097B-AF65-429A-9BAB-7E9C684F3ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA9F097B-AF65-429A-9BAB-7E9C684F3ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA9F097B-AF65-429A-9BAB-7E9C684F3ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA9F097B-AF65-429A-9BAB-7E9C684F3ECF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{16E4A140-F463-48A8-B126-070D63092B13} = {722432B2-E99E-44EA-94C9-F53C0F79FF9C}
+		{DA9F097B-AF65-429A-9BAB-7E9C684F3ECF} = {722432B2-E99E-44EA-94C9-F53C0F79FF9C}
+	EndGlobalSection
+EndGlobal
