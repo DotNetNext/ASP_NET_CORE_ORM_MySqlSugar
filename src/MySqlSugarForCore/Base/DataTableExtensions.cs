@@ -352,7 +352,17 @@ namespace MySqlSugar
         {
             get
             {
-                return obj[name];
+                if (obj.ContainsKey(name))
+                {
+                    return obj[name];
+                }
+                else if (obj.Any(it => it.Key.ToLower() == name.ToLower()))
+                {
+                    return obj.Single(it => it.Key.ToLower() == name.ToLower()).Value;
+                }
+                else {
+                    throw new SqlSugarException("DataRow没有找到列"+name);
+                }
             }
         }
 
