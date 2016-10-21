@@ -4,6 +4,7 @@
 -nowarn:CS1701
 -nowarn:CS1702
 -nowarn:CS1705
+-doc:"F:\MyOpenSource\MySqlCode\MySqlSugarForCore\src\MySqlSugarForCore\bin\Debug\netstandard1.6\MySqlSugarForCore.xml"
 -t:library
 -debug:full
 -nostdlib
