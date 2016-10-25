@@ -15,7 +15,7 @@ namespace NewTest
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             //设置执行的DEMO
-            string switchOn = "test";
+            string switchOn = "update";
             IDemos demo = null;
             switch (switchOn)
             {
