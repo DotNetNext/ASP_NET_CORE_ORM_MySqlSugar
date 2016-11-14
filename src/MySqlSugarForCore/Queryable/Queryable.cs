@@ -82,7 +82,7 @@ namespace MySqlSugar
         /// <param name="expression">表达式</param>
         /// <param name="type">Join的类型</param>
         /// <returns></returns>
-        public Queryable<T> JoinTable<T2>(Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT)
+        public Queryable<T> JoinTable<T2>(Expression<Func<T, T2, object>> expression, JoinType type = JoinType.Left)
         {
             return this.JoinTable<T, T2>(expression, type);
         }
@@ -95,7 +95,7 @@ namespace MySqlSugar
         /// <param name="expression">表达式</param>
         /// <param name="type">Join的类型</param>
         /// <returns></returns>
-        public Queryable<T> JoinTable<T2, T3>(Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT)
+        public Queryable<T> JoinTable<T2, T3>(Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.Left)
         {
             return this.JoinTable<T, T2, T3>(expression, type);
         }

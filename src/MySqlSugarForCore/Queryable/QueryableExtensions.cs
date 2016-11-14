@@ -33,7 +33,7 @@ namespace MySqlSugar
             ResolveExpress re = new ResolveExpress(queryable.WhereIndex);
             if (queryable.JoinTableValue.IsValuable())
             {
-                re.Type = ResolveExpressType.nT;
+                re.Type = ResolveExpressType.NT;
             }
             re.ResolveExpression(re, expression, queryable.DB);
             queryable.Params.AddRange(re.Paras);
@@ -72,7 +72,7 @@ namespace MySqlSugar
             var type = queryable.Type;
             queryable.WhereIndex = queryable.WhereIndex + 100;
             ResolveExpress re = new ResolveExpress(queryable.WhereIndex);
-            re.Type = ResolveExpressType.nT;
+            re.Type = ResolveExpressType.NT;
             re.ResolveExpression(re, expression, queryable.DB);
             queryable.Params.AddRange(re.Paras);
             queryable.WhereValue.Add(re.SqlWhere);
@@ -93,7 +93,7 @@ namespace MySqlSugar
             var type = queryable.Type;
             queryable.WhereIndex = queryable.WhereIndex + 100;
             ResolveExpress re = new ResolveExpress(queryable.WhereIndex);
-            re.Type = ResolveExpressType.nT;
+            re.Type = ResolveExpressType.NT;
             re.ResolveExpression(re, expression, queryable.DB);
             queryable.Params.AddRange(re.Paras);
             queryable.WhereValue.Add(re.SqlWhere);
@@ -115,7 +115,7 @@ namespace MySqlSugar
             var type = queryable.Type;
             queryable.WhereIndex = queryable.WhereIndex + 100;
             ResolveExpress re = new ResolveExpress(queryable.WhereIndex);
-            re.Type = ResolveExpressType.nT;
+            re.Type = ResolveExpressType.NT;
             re.ResolveExpression(re, expression, queryable.DB);
             queryable.Params.AddRange(re.Paras);
             queryable.WhereValue.Add(re.SqlWhere);
@@ -138,7 +138,7 @@ namespace MySqlSugar
             var type = queryable.Type;
             queryable.WhereIndex = queryable.WhereIndex + 100;
             ResolveExpress re = new ResolveExpress(queryable.WhereIndex);
-            re.Type = ResolveExpressType.nT;
+            re.Type = ResolveExpressType.NT;
             re.ResolveExpression(re, expression, queryable.DB);
             queryable.Params.AddRange(re.Paras);
             queryable.WhereValue.Add(re.SqlWhere);
@@ -971,13 +971,13 @@ namespace MySqlSugar
         /// <param name="expression">表达式</param>
         /// <param name="type">Join的类型</param>
         /// <returns>Queryable</returns>
-        public static Queryable<T> JoinTable<T, T2>(this Queryable<T> queryable, Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT)
+        public static Queryable<T> JoinTable<T, T2>(this Queryable<T> queryable, Expression<Func<T, T2, object>> expression, JoinType type = JoinType.Left)
         {
             queryable.DB.InitAttributes<T2>();
 
             ResolveExpress re = new ResolveExpress();
             queryable.WhereIndex = queryable.WhereIndex + 100;
-            re.Type = ResolveExpressType.nT;
+            re.Type = ResolveExpressType.NT;
             var exLeftStr = Regex.Match(expression.ToString(), @"\((.+?)\).+").Groups[1].Value;
             var exLeftArray = exLeftStr.Split(',');
             var shortName1 = exLeftArray.First();
@@ -1023,13 +1023,13 @@ namespace MySqlSugar
         /// <param name="expression">条件表达式</param>
         /// <param name="type">Join的类型</param>
         /// <returns>Queryable</returns>
-        public static Queryable<T> JoinTable<T, T2, T3>(this Queryable<T> queryable, Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT)
+        public static Queryable<T> JoinTable<T, T2, T3>(this Queryable<T> queryable, Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.Left)
         {
             queryable.DB.InitAttributes<T3>();
 
             ResolveExpress re = new ResolveExpress();
             queryable.WhereIndex = queryable.WhereIndex + 100;
-            re.Type = ResolveExpressType.nT;
+            re.Type = ResolveExpressType.NT;
             var exLeftStr = Regex.Match(expression.ToString(), @"\((.+?)\).+").Groups[1].Value;
             var exLeftArray = exLeftStr.Split(',');
             var shortName1 = exLeftArray[1];
@@ -1075,7 +1075,7 @@ namespace MySqlSugar
         /// <param name="whereObj">匿名参数(例如:new{id=1,name="张三"})</param>
         /// <param name="type">Join的类型</param>
         /// <returns>Queryable</returns>
-        public static Queryable<T> JoinTable<T>(this Queryable<T> queryable, string tableName, string shortName, string onWhere, object whereObj, JoinType type = JoinType.LEFT)
+        public static Queryable<T> JoinTable<T>(this Queryable<T> queryable, string tableName, string shortName, string onWhere, object whereObj, JoinType type = JoinType.Left)
         {
             queryable.WhereIndex = queryable.WhereIndex + 100; ;
             string joinType = type.ToString();
