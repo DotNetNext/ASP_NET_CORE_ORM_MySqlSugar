@@ -221,6 +221,14 @@
             <param name="entities"></param>
             <returns>全部插入成功返回true</returns>
         </member>
+        <member name="M:MySqlSugar.SqlSugarClient.InsertOrUpdate``1(``0)">
+            <summary>
+            主键有值则更新，无值则插入，不支持复合主键。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="operationObj">操作的实体对象</param>
+            <returns>更新返回bool,插入如果有自增列返回自增列的值否则也返回bool</returns>
+        </member>
         <member name="M:MySqlSugar.SqlSugarClient.Update``1(System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Object)">
             <summary>
             根据表达式条件将实体对象更新到数据库
@@ -1100,7 +1108,11 @@
             动态获取IDataRecord里面的函数
             </summary>
             <param name="generator"></param>
+            <param name="type"></param>
+            <param name="isNullable"></param>
             <param name="pro"></param>
+            <param name="dbTypeName"></param>
+            <param name="fieldName"></param>
         </member>
         <member name="T:MySqlSugar.IDataRecordExtensions">
             <summary>
@@ -1670,17 +1682,17 @@
             join类型
             </summary>
         </member>
-        <member name="F:MySqlSugar.JoinType.INNER">
+        <member name="F:MySqlSugar.JoinType.Inner">
             <summary>
             等值连接
             </summary>
         </member>
-        <member name="F:MySqlSugar.JoinType.LEFT">
+        <member name="F:MySqlSugar.JoinType.Left">
             <summary>
             左外连
             </summary>
         </member>
-        <member name="F:MySqlSugar.JoinType.RIGHT">
+        <member name="F:MySqlSugar.JoinType.Right">
             <summary>
             右外连
             </summary>
@@ -1690,12 +1702,12 @@
             Apply类型
             </summary>
         </member>
-        <member name="F:MySqlSugar.ApplyType.CORSS">
+        <member name="F:MySqlSugar.ApplyType.Cross">
             <summary>
             笛卡尔积
             </summary>
         </member>
-        <member name="F:MySqlSugar.ApplyType.OUTRE">
+        <member name="F:MySqlSugar.ApplyType.Outer">
             <summary>
             外连
             </summary>
@@ -1730,12 +1742,12 @@
             解析类型
             </summary>
         </member>
-        <member name="F:MySqlSugar.ResolveExpressType.oneT">
+        <member name="F:MySqlSugar.ResolveExpressType.OneT">
             <summary>
             单个T
             </summary>
         </member>
-        <member name="F:MySqlSugar.ResolveExpressType.nT">
+        <member name="F:MySqlSugar.ResolveExpressType.NT">
             <summary>
             多个T
             </summary>
@@ -2524,6 +2536,27 @@
             <param name="queryable">查询对象</param>
             <returns>json字符串</returns>
         </member>
+        <member name="M:MySqlSugar.QueryableExtensions.ToJsonPage``1(MySqlSugar.Queryable{``0},System.Int32,System.Int32)">
+            <summary>
+            将Queryable转换为分页后的Json
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="queryable">查询对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页显示数量</param>
+            <returns>Json</returns>
+        </member>
+        <member name="M:MySqlSugar.QueryableExtensions.ToJsonPage``1(MySqlSugar.Queryable{``0},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            将Queryable转换为分页后的Json
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="queryable">查询对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页显示数量</param>
+            <param name="pageCount">pageCount无需赋值，函数执行完自动赋值</param>
+            <returns>Json</returns>
+        </member>
         <member name="M:MySqlSugar.QueryableExtensions.ToSql``1(MySqlSugar.Queryable{``0})">
             <summary>
             返回Sql和参数信息
@@ -2540,12 +2573,54 @@
             <param name="queryable">查询对象</param>
             <returns>dynamic</returns>
         </member>
+        <member name="M:MySqlSugar.QueryableExtensions.ToDynamicPage``1(MySqlSugar.Queryable{``0},System.Int32,System.Int32)">
+            <summary>
+            将Queryable转换为分页后的Dynamic
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="queryable">查询对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页显示数量</param>
+            <returns>Dynamic</returns>
+        </member>
+        <member name="M:MySqlSugar.QueryableExtensions.ToDynamicPage``1(MySqlSugar.Queryable{``0},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            将Queryable转换为分页后的Dynamic
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="queryable">查询对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页显示数量</param>
+            <param name="pageCount">pageCount无需赋值，函数执行完自动赋值</param>
+            <returns>Dynamic</returns>
+        </member>
         <member name="M:MySqlSugar.QueryableExtensions.ToDataTable``1(MySqlSugar.Queryable{``0})">
             <summary>
             将Queryable转换为DataTable
             </summary>
             <typeparam name="T">实体类型</typeparam>
             <param name="queryable">查询对象</param>
+            <returns>DataTable</returns>
+        </member>
+        <member name="M:MySqlSugar.QueryableExtensions.ToDataTablePage``1(MySqlSugar.Queryable{``0},System.Int32,System.Int32)">
+            <summary>
+            将Queryable转换为分页后的DataTable
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="queryable">查询对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页显示数量</param>
+            <returns>DataTable</returns>
+        </member>
+        <member name="M:MySqlSugar.QueryableExtensions.ToDataTablePage``1(MySqlSugar.Queryable{``0},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            将Queryable转换为分页后的DataTable
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="queryable">查询对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页显示数量</param>
+            <param name="pageCount">pageCount无需赋值，函数执行完自动赋值</param>
             <returns>DataTable</returns>
         </member>
         <member name="M:MySqlSugar.QueryableExtensions.ToPageList``1(MySqlSugar.Queryable{``0},System.Int32,System.Int32)">
@@ -2556,6 +2631,17 @@
             <param name="queryable">查询对象</param>
             <param name="pageIndex">当前页码</param>
             <param name="pageSize">每页显示数量</param>
+            <returns>T的集合</returns>
+        </member>
+        <member name="M:MySqlSugar.QueryableExtensions.ToPageList``1(MySqlSugar.Queryable{``0},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            将Queryable转换为分页后的List&lt;T&gt;集合
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="queryable">查询对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页显示数量</param>
+            <param name="pageCount">pageCount无需赋值，函数执行完自动赋值</param>
             <returns>T的集合</returns>
         </member>
         <member name="M:MySqlSugar.QueryableExtensions.JoinTable``2(MySqlSugar.Queryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1,System.Object}},MySqlSugar.JoinType)">
