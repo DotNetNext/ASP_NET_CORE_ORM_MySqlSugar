@@ -30,7 +30,7 @@ namespace MySqlSugar
             reval.SelectValue = Regex.Match(expStr, @"(?<=\{).*?(?=\})").Value;
             if (reval.SelectValue.IsNullOrEmpty())
             {
-                reval.SelectValue = Regex.Match(expStr, @"c =>.*?\((.+)\)").Groups[1].Value;
+                reval.SelectValue = Regex.Match(expStr, @"[a-z,A-Z]\W* =>.*?\((.+)\)").Groups[1].Value;
             }
             var hasOutPar = expStr.Contains(SqlSugarTool.ParSymbol);
             if (hasOutPar)//有
@@ -52,19 +52,20 @@ namespace MySqlSugar
             {
                 foreach (var item in reval.DB._mappingColumns)
                 {
-                    reval.SelectValue = Regex.Replace(reval.SelectValue,@"\."+item.Key,"."+item.Value);
+                    reval.SelectValue = Regex.Replace(reval.SelectValue, @"\." + item.Key, "." + item.Value);
                 }
             }
             reval.SelectValue = ConvertSelectValue(reval.SelectValue);
         }
-        internal static string ConvertSelectValue(string selectValue) {
+        internal static string ConvertSelectValue(string selectValue)
+        {
             if (selectValue.IsNullOrEmpty()) return "*";
             var array = selectValue.Split(',');
             selectValue = string.Join(",", array.Select(it => {
-               if(it.IsNullOrEmpty())return it;
-               if(!it.Contains("=")) return it;
-               var innerArray=it.Split('=').OrderBy(a=>a.Split('.').Length).ToArray();
-               return innerArray.Last().Trim().GetTranslationSqlName() + " AS " + innerArray.First().Trim().GetTranslationSqlName();
+                if (it.IsNullOrEmpty()) return it;
+                if (!it.Contains("=")) return it;
+                var innerArray = it.Split('=').OrderBy(a => a.Split('.').Length).ToArray();
+                return innerArray.Last().GetTranslationSqlName().Trim() + " AS " + innerArray.First().Trim().GetTranslationSqlName();
             }));
             return selectValue;
         }
@@ -76,17 +77,19 @@ namespace MySqlSugar
             {
                 throw new SqlSugarException("Select中的拉姆达表达式,不支持外部传参数,目前支持的写法 Where(\"1=1\",new {id=1}).Select(it=>{ id=\"" + SqlSugarTool.ParSymbol + "id\".ObjToInt()}");
             }
-            if(expStr.IsValuable()&&Regex.IsMatch(expStr, @"\+|\-|\*|\/")){
+            if (expStr.IsValuable() && Regex.IsMatch(expStr, @"\+|\-|\*|\/"))
+            {
                 throw new SqlSugarException("Select中不支持变量的运算。");
             }
-            string reg= @"(\.[a-z,A-Z,_]\w*?\(.*?\))|\=\s*[a-z,A-Z,_]\w*?\(.*?\)|\=\s*[a-z,A-Z,_]\w*?\(.*?\)|\=[a-z,A-Z,_]\w*.[a-z,A-Z,_]\w*.[a-z,A-Z,_]\w*";
-            if (expStr.IsValuable() & Regex.IsMatch(expStr,reg))
+            string reg = @"(\.[a-z,A-Z,_]\w*?\(.*?\))|\=\s*[a-z,A-Z,_]\w*?\(.*?\)|\=\s*[a-z,A-Z,_]\w*?\(.*?\)|\=[a-z,A-Z,_]\w*.[a-z,A-Z,_]\w*.[a-z,A-Z,_]\w*";
+            if (expStr.IsValuable() & Regex.IsMatch(expStr, reg))
             {
                 var ms = Regex.Matches(expStr, reg);
                 var errorNum = 0;
-                foreach (Match item in ms.Cast<Match>().OrderBy(it=>it.Value.Split('.').Length))
+                foreach (Match item in ms.Cast<Match>().OrderBy(it => it.Value.Split('.').Length))
                 {
-                    if (item.Value == null) {
+                    if (item.Value == null)
+                    {
                         errorNum++;
                         break;
                     }
@@ -99,7 +102,7 @@ namespace MySqlSugar
                 }
                 if (errorNum > 0)
                 {
-                    throw new SqlSugarException("Select中不支持函数"+errorFunName);
+                    throw new SqlSugarException("Select中不支持函数" + errorFunName);
                 }
             }
             return false;
@@ -117,7 +120,7 @@ namespace MySqlSugar
             expStr = Regex.Match(expStr, @"(?<=\{).*?(?=\})").Value;
             if (expStr.IsNullOrEmpty())
             {
-                expStr = Regex.Match(reval.SelectValue, @"c =>.*?\((.+)\)").Groups[1].Value;
+                expStr = Regex.Match(reval.SelectValue, @"[a-z,A-Z]\W* =>.*?\((.+)\)").Groups[1].Value;
             }
             var hasOutPar = expStr.Contains(SqlSugarTool.ParSymbol);
             if (hasOutPar)//有
