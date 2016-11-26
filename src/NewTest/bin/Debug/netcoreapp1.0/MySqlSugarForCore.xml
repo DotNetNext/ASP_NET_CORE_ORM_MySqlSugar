@@ -3853,6 +3853,14 @@
             <param name="tableName"></param>
             <returns></returns>
         </member>
+        <member name="M:MySqlSugar.SqlSugarTool.GetPrimaryKeyByTableNames(MySqlSugar.SqlSugarClient,System.String)">
+            <summary>
+            根据表获取主键
+            </summary>
+            <param name="db"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
         <member name="M:MySqlSugar.SqlSugarTool.GetIdentitiesKeyByTableName(MySqlSugar.SqlSugarClient,System.String)">
              <summary>
             根据表名获取自添列 keyTableName Value columnName
