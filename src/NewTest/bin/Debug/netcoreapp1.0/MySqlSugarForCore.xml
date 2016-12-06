@@ -19,6 +19,13 @@
             </summary>
             <param name="connectionString">数据库连接字符串</param>
         </member>
+        <member name="M:MySqlSugar.SqlSugarClient.#ctor(System.String,System.String[])">
+            <summary>
+            初始化 SqlSugarClient 类的新实例（主从模式）
+            </summary>
+            <param name="masterConnectionString">主:写入事务等操作</param>
+            <param name="slaveConnectionString">从:无事务读取</param>
+        </member>
         <member name="P:MySqlSugar.SqlSugarClient.ConnectionString">
             <summary>
             当前连接字符串
@@ -644,6 +651,16 @@
             ** 使用说明：
             </summary>
         </member>
+        <member name="F:MySqlSugar.SqlHelper._MySqlConnection">
+            <summary>
+            连接对象
+            </summary>
+        </member>
+        <member name="F:MySqlSugar.SqlHelper._tran">
+            <summary>
+            事务对象
+            </summary>
+        </member>
         <member name="F:MySqlSugar.SqlHelper.CommandType">
             <summary>
             如何解释命令字符串 默认为Text 
@@ -688,6 +705,29 @@
             初始化 SqlHelper 类的新实例
             </summary>
             <param name="connectionString"></param>
+        </member>
+        <member name="F:MySqlSugar.SqlHelper._masterConnection">
+            <summary>
+            主连接
+            </summary>
+        </member>
+        <member name="F:MySqlSugar.SqlHelper._slaveConnections">
+            <summary>
+            从连接
+            </summary>
+        </member>
+        <member name="M:MySqlSugar.SqlHelper.#ctor(System.String,System.String[])">
+            <summary>
+            初始化 SqlHelper 类的新实例
+            </summary>
+            <param name="masterConnectionString"></param>
+            <param name="slaveConnectionStrings"></param>
+        </member>
+        <member name="M:MySqlSugar.SqlHelper.SetCurrentConnection(System.Boolean)">
+            <summary>
+            设置当前主从连接对象
+            </summary>
+            <param name="isMaster"></param>
         </member>
         <member name="M:MySqlSugar.SqlHelper.GetConnection">
             <summary>
@@ -888,9 +928,22 @@
             <param name="pars"></param>
             <returns></returns>
         </member>
+        <member name="M:MySqlSugar.SqlHelper.ExecLogEvent(System.String,MySql.Data.MySqlClient.MySqlParameter[],System.Boolean)">
+            <summary>
+            执行日志事件
+            </summary>
+            <param name="sql"></param>
+            <param name="pars"></param>
+            <param name="isStarting"></param>
+        </member>
         <member name="M:MySqlSugar.SqlHelper.Dispose">
             <summary>
             释放数据库连接对象
+            </summary>
+        </member>
+        <member name="M:MySqlSugar.SqlHelper.CheckConnect">
+            <summary>
+            检查数据库连接，若未连接，连接数据库
             </summary>
         </member>
         <member name="T:MySqlSugar.CloudConnectionConfig">
