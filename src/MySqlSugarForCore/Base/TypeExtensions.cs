@@ -65,7 +65,7 @@ namespace MySqlSugar
 
         public static bool IsClass(this Type type)
         {
-            return type.GetTypeInfo().IsClass;
+            return type.GetTypeInfo().IsClass&&type!=SqlSugarTool.StringType;
         }
         
     }
